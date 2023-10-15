@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+
+*{
+    font-family: "Lato", sans-serif;
+}
+
+body {
+background-color: rgb(226, 47, 47);
+color: aliceblue;
+}
+input[type=text] {
+    width:150px;
+}
+input[type=number] {
+    width:60px;
+}
+
+.name {
+    width: 300px;
+}
+
+.content {
+    margin-top: 50px;
+}
+
+.button {
+    font-family: 'Ubuntu';
+    font-size: 29px;
+    font-weight: bold;
+    color: #ffffff !important;
+    padding: 9px 50px;
+    border-radius: 5px;
+    border: 2px ridge #f3c846;
+    background: #9e220a;
+    background: linear-gradient(to top, #9e220a, #f66d52)
+}
+.button:hover {
+    color: #cccccc !important;
+    background: #f66d52;
+    background: linear-gradient(to top, #f66d52, #9e220a);
+  }
+
+
+  .block {
+    
+    border: 2px solid #f3c846;
+    background: lightgreen;
+    width: 50px;
+    height: 50px;
+    vertical-align:bottom;
+    display: inline-block;
+
+    
+  }
+  
+  @keyframes infinite-spinning {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .block-spin {
+    animation: infinite-spinning 3s infinite;
+  }
+
+  .block-pause {
+    animation: paused;
+  }
+
+
+  

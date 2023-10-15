@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>WireGuard Configuration Files Generator</title>
+    <script src="eel.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="content" >
+<p align="center">Automatic generation of data for setting up the server and connecting WireGuard clients. You can create tens of thousands of unique configuration files in minutes</p>
+        <hr>
+        <p>1.Main settings (required)</p>
+        <table>
+    <tbody>
+      <tr>
+        <td>Numbers:</td>
+        <td><input type="number" value="50" id="count"></td>
+        <td>How many connection configs You want to generate</td>   
+      </tr>
+      
+      <tr>
+        <td>Name:</td>
+        <td> <input type="text" id="name" value="vpn-peer"></td>
+        <td>As a result, the name of the client configuration file will look like {name}-{sequence number}@{endname}.conf <i><b>For example: vpn-peer-15@vpn_server.conf</b></i></td>
+      </tr>
+      <tr>
+        <td>End name:</td>
+        <td><input type="text" id="endname" value="vpn_server"></td>
+        <td>Postfix to the name of the client profile, as well as the name of the server configuration file. <i><b>For example: file name for the server: {endname}.conf</b></i></td>
+      </tr>
+      <tr>
+        <td>Endpoint:</td>
+        <td><input type="text" id="endpoint" value="YOUR_DOMAIN.COM"></td>
+        <td>Your WireGuard VPN server address</td>
+      </tr>
+      <tr>
+        <td>Port:</td>
+        <td><input type="text" id="port" value="55820"></td>
+        <td>WireGuard server port on which a specific tunnel will work</td>
+      </tr>
+      <tr>
+        <td>Interface:</td>
+        <td><input type="text" id="interface" value="eth0"></td>
+        <td>Interface of the server network card that looks at the Internet (<b><i>check via ifconfig</b></i>)</td>
+      </tr>
+      
+    </tbody>
+  </table>
+
+<table>
+    <tbody>
+        <hr>
+        <p>2.Additional settings (can be left unchanged)</p>
+        <tr>
+            <td>Network start address:</td>
+            <td><input type="number" id="ip_mask" value="101" ></td>
+            <td>Beginning of network addressing. This is what the IP address of the VPN network will look like. Can take a value from 1 to 255. (example 101 for addresses like 101.0.0.2)</td>
+          </tr>
+        <tr>
+        <td>Allowed_ips:</td>
+        <td><input type="text" id="allowed_ips" value="0.0.0.0/0" ></td>
+        <td>Valid subnet address mask</td>
+      </tr>
+      <tr>
+        <td>DNS:</td>
+        <td><input type="text" id="dns" value="8.8.8.8" ></td>
+        <td>DNS server address</td>
+      </tr>  
+      
+    </tbody>  
+  
+</table>
+
+<table>
+    <tbody>
+        <hr>
+        <p>3. Technical settings, names of directories that are created by default in the script directory (can be left unchanged)</p>
+        <tr>
+            <td>Path_keys:</td>
+            <td><input type="text" id="path_keys" value="keys" ></td>
+            <td>Name of the directory in which client keys will be generated</td>
+          </tr>
+        <tr>
+        <td>Path_conf:</td>
+        <td><input type="text" id="path_conf" value="confs" ></td>
+        <td>Name of the directory in which client configuration files will be generated</td>
+      </tr>
+      <tr>
+        <td>Path_server:</td>
+        <td><input type="text" id="path_server" value="wireguard" ></td>
+        <td>Name of the directory in which the server keys and the server configuration file will be generated. On a deploy server, the contents of this folder should be copied to /etc/wireguard/</td>
+      </tr>  
+      
+    </tbody>  
+  
+</table>
+
+
+    
+<br><br>
+<div align="center"> <div class="block" id="block1"></div>
+    <input type="button" class="button" id="start" value="START GENERATION"> <div class="block" id="block2"></div> 
+    <p id="result">  </p>
+</div>
+</div>
+
+<script
+  src="https://code.jquery.com/jquery-3.7.1.js"
+  integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+  crossorigin="anonymous"></script>
+<script type="text/javascript">
+    async function generator(){
+        let name = document.getElementById("name").value;
+        let count = document.getElementById("count").value;
+        let endname = document.getElementById("endname").value;
+        let endpoint = document.getElementById("endpoint").value;
+        let port = document.getElementById("port").value;
+        let interface = document.getElementById("interface").value;
+        let ip_mask = document.getElementById("ip_mask").value;
+        let allowed_ips = document.getElementById("allowed_ips").value;
+        let dns = document.getElementById("dns").value;
+        let path_keys= document.getElementById("path_keys").value;
+        let path_conf = document.getElementById("path_conf").value;
+        let path_server = document.getElementById("path_server").value;
+
+        let result = await eel.generator(count, name, endname, endpoint, port, interface, ip_mask, allowed_ips, dns, path_keys, path_conf, path_server)();
+        document.getElementById("result").innerHTML = result;
+        document.querySelector(".block").classList.remove("block-spin");
+        document.getElementById("block2").classList.remove("block-spin");
+    }
+
+$("#start").click(function(){
+    generator();
+    document.querySelector(".block").classList.toggle("block-spin");
+    document.getElementById("block2").classList.toggle("block-spin");
+    
+});
+
+</script>
+
+
+
+
+
+
+</body>
+</html>
