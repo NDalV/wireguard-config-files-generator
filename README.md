@@ -19,9 +19,10 @@ You can create tens of thousands of unique configuration files in minutes.
 
 
 ### Requirements & Dependencies:
-+ Python v.3.11 with Eel library
++ Python v.3.11 with Eel and pathlib librarys
 + qrencode v.4.1.1
 + wireguard-tools v1.0.20210914
++ chrome
 
 ### How to use:
 1. install all Requirements & Dependencies
