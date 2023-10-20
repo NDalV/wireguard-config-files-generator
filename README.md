@@ -32,6 +32,14 @@ You can create tens of thousands of unique configuration files in minutes.
 5. upload the server configuration file (your_name.conf) from the "wireguard" directory to your server at the directory /etc/wireguard/
 6. upload the client configuration file (or scan the qr code) from the "confs" directory into the WireGuard client app
 
+### OR You can use docker image
+https://hub.docker.com/r/vladislav8hub/wireguard-generator
+
+```
+docker run -v /[YOUR_PATH]/files/:/app/files -p 8000:8000 vladislav8hub/wireguard-generator
+```
+#### All generated data is created in the container folder [/app/files/] to which you need to mount your directory -v /[YOUR_PATH]/files/:/app/files
+
 
 
 
